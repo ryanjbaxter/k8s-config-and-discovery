@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="refresh" content="5"/>
+    <link href="tanzu.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="jumbotron">
+            <h1 id="headerTitle" style="color: #304250" th:text="${title}"></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Sensor data</h3>
+                </div>
+                <div id="mapValues" class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Temperature</th>
+                            <th>Pressure</th>
+                            <th>Location</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${sensors.empty}">
+                            <td colspan="2"> No Sensors Available</td>
+                        </tr>
+                        <tr th:each="sensor : ${sensors}">
+                            <td><span th:text="${sensor.id}"></span></td>
+                            <td><span th:text="${sensor.temperature}"></span></td>
+                            <td><span th:text="${sensor.pressure}"></span></td>
+                            <td><span th:text="${sensor.location}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

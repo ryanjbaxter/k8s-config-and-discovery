@@ -1,0 +1,13 @@
+spring:
+  config:
+    import: "optional:configserver:"
+  application:
+    name: spring-sensors-sensor
+server:
+  port: 7070
+---
+spring:
+  config:
+    activate:
+      on-cloud-platform: kubernetes
+    import: configserver:http://spring-cloud-kubernetes-configserver:8888

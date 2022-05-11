@@ -1,0 +1,51 @@
+accelerator:
+  displayName: Spring Sensors
+  description: A Spring application for tracking sensor data
+  iconUrl: https://dashboard.snapcraft.io/site_media/appmedia/2018/11/indicator-sensors_r8EdpLP.png
+  tags:
+    - java
+    - spring
+
+  options:
+    - name: title
+      label: Title
+      display: true
+      description: Title text for the application
+      inputType: text
+      dataType: string
+      defaultValue: "Tanzu Sensor Database"
+
+    - name: gitUrl
+      label: Git Repository URL
+      display: true
+      description: Git Repository URL of the application's source code
+      inputType: text
+      dataType: string
+      defaultValue: "https://github.com/tanzu-end-to-end/spring-sensors.git"
+
+    - name: gitBranch
+      label: Git Repository Branch
+      display: true
+      description: Git Repository Branch of the application's source code
+      inputType: text
+      dataType: string
+      defaultValue: "main"
+
+engine:
+  merge:
+    - include: [ "**" ]
+      exclude: [ "tap/workload.yaml", "src/main/resources/application.yaml" ]
+    - include: [ "tap/workload.yaml" ]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: https://github.com/tanzu-end-to-end/spring-sensors.git
+              with: "#gitUrl"
+            - text: main
+              with: "#gitBranch"
+    - include: [ "src/main/resources/application.yaml" ]
+      chain:
+        - type: ReplaceText
+          substitutions:
+             - text: Sensor Database
+               with: "#title"

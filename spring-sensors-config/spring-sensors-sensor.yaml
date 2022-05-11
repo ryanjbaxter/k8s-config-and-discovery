@@ -1,0 +1,7 @@
+spring.cloud.stream.bindings.sendSensorData-out-0.destination: sensor-data
+org:
+  springframework:
+    cloud:
+      bindings:
+        boot:
+          enable: true

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sensors-rabbit-default-user
+type: Opaque
+stringData:
+  username: admin
+  password: pass
+  default_user.conf: |
+    default_user = admin
+    default_pass = pass

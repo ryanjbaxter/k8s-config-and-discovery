@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: spring-sensors-sensor
+  name: spring-sensors-sensor
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: spring-sensors-sensor
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: spring-sensors-sensor
+    spec:
+      containers:
+      - image: public.ecr.aws/c3y1x2r0/sensors/spring-sensors-sensor
+        imagePullPolicy: Always
+        name: spring-sensors-sensor
+        resources: {}
+        readinessProbe:
+          httpGet:
+            port: 7070
+            path: /actuator/health/readiness
+        livenessProbe:
+          httpGet:
+            port: 7070
+            path: /actuator/health/liveness
+        lifecycle:
+          preStop:
+            exec:
+              command:
+                - sh
+                - '-c'
+                - sleep 10
+status: {}

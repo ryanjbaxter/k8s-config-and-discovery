@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ryanjbaxter/spring-sensors-config
+server:
+  port: 8888

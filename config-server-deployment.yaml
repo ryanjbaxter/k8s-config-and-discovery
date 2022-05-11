@@ -1,0 +1,86 @@
+---
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: kubernetesconfigserver
+    data:
+      application.yaml: |
+        spring:
+          cloud:
+            config.server.git.uri: https://github.com/ryanjbaxter/spring-sensors-config
+            kubernetes.secrets.enableApi: true
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app: spring-cloud-kubernetes-configserver
+      name: spring-cloud-kubernetes-configserver
+    spec:
+      ports:
+        - name: http
+          port: 8888
+          targetPort: 8888
+      selector:
+        app: spring-cloud-kubernetes-configserver
+      type: LoadBalancer
+  - apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      labels:
+        app: spring-cloud-kubernetes-configserver
+      name: spring-cloud-kubernetes-configserver
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    metadata:
+      labels:
+        app: spring-cloud-kubernetes-configserver
+      name: spring-cloud-kubernetes-configserver:view
+    roleRef:
+      kind: Role
+      apiGroup: rbac.authorization.k8s.io
+      name: config-namespace-reader
+    subjects:
+      - kind: ServiceAccount
+        name: spring-cloud-kubernetes-configserver
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: Role
+    metadata:
+      name: config-namespace-reader
+    rules:
+      - apiGroups: ["", "extensions", "apps"]
+        resources: ["configmaps", "secrets"]
+        verbs: ["get", "list"]
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: spring-cloud-kubernetes-configserver-deployment
+    spec:
+      selector:
+        matchLabels:
+          app: spring-cloud-kubernetes-configserver
+      template:
+        metadata:
+          labels:
+            app: spring-cloud-kubernetes-configserver
+        spec:
+          serviceAccountName: spring-cloud-kubernetes-configserver
+          containers:
+            - name: spring-cloud-kubernetes-configserver
+              image: springcloud/spring-cloud-kubernetes-configserver:2.1.2
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: SPRING_PROFILES_INCLUDE
+                  value: "kubernetes,git"
+              readinessProbe:
+                httpGet:
+                  port: 8888
+                  path: /actuator/health/readiness
+              livenessProbe:
+                httpGet:
+                  port: 8888
+                  path: /actuator/health/liveness
+              ports:
+                - containerPort: 8888

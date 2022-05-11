@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: spring-sensors-location-service
+  name: spring-sensors-location-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-sensors-location-service
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: spring-sensors-location-service
+    spec:
+      containers:
+      - image: public.ecr.aws/c3y1x2r0/sensors/spring-sensors-location-service
+        imagePullPolicy: Always
+        name: spring-sensors-location-service
+        resources: {}
+        readinessProbe:
+          httpGet:
+            port: 9090
+            path: /actuator/health/readiness
+        livenessProbe:
+          httpGet:
+            port: 9090
+            path: /actuator/health/liveness
+        lifecycle:
+          preStop:
+            exec:
+              command:
+                - sh
+                - '-c'
+                - sleep 10
+status: {}
