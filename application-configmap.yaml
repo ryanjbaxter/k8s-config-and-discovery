@@ -4,6 +4,5 @@ metadata:
   name: application
 data:
   spring.rabbitmq.host: "sensors-rabbit"
-  eureka.client.enabled: "false"
-  spring.cloud.kubernetes.discovery.enabled: "true"
-  spring.cloud.kubernetes.discovery.discovery-server-url: "http://spring-cloud-kubernetes-discoveryserver"
+  management.endpoints.web.exposure.include: "*"
+  server.shutdown: "graceful"

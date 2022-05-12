@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-sensors-config
+data:
+  spring.jpa.hibernate.ddl-auto: "update"
+  spring.datasource.url: "jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1"
+  spring.cloud.stream.bindings.receiveSensorData-in-0.destination: "sensor-data"

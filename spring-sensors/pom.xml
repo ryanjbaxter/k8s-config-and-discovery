@@ -17,7 +17,7 @@
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>2021.0.2</spring-cloud.version>
-        <spring-boot.build-image.imageName>public.ecr.aws/c3y1x2r0/sensors/spring-sensors</spring-boot.build-image.imageName>
+        <spring-boot.build-image.imageName>public.ecr.aws/c3y1x2r0/sensors/spring-sensors:platform</spring-boot.build-image.imageName>
     </properties>
 
     <dependencies>
@@ -40,10 +40,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

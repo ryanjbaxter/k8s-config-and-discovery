@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-sensors-sensor-config
+data:
+  spring.cloud.stream.bindings.sendSensorData-out-0.destination: "sensor-data"
+  org.springframework.cloud.bindings.boot.enable: "true"

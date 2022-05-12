@@ -18,7 +18,7 @@ spec:
         app: spring-sensors-location-service
     spec:
       containers:
-      - image: public.ecr.aws/c3y1x2r0/sensors/spring-sensors-location-service
+      - image: public.ecr.aws/c3y1x2r0/sensors/spring-sensors-location-service:platform
         imagePullPolicy: Always
         name: spring-sensors-location-service
         resources: {}
@@ -37,4 +37,15 @@ spec:
                 - sh
                 - '-c'
                 - sleep 10
+        volumeMounts:
+          - mountPath: /etc/config
+            name: application-config
+      volumes:
+        - name: application-config
+          projected:
+            sources:
+              - configMap:
+                  name: application
+              - secret:
+                  name: application
 status: {}

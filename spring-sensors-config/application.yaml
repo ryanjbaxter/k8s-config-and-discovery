@@ -1,8 +1,0 @@
-management.endpoints.web.exposure.include: "*"
-server:
-  shutdown: graceful
-spring:
-  cloud:
-    kubernetes:
-      discovery:
-        enabled: false
