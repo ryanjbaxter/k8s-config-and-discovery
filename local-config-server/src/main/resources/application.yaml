@@ -3,6 +3,8 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/ryanjbaxter/spring-sensors-config
+          uri: https://github.com/ryanjbaxter/k8s-config-and-discovery
+          search-paths:
+            - spring-sensors-config
 server:
   port: 8888
