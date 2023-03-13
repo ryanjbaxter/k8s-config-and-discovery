@@ -1,4 +1,10 @@
-spring.cloud.stream.bindings.sendSensorData-out-0.destination: sensor-data
+spring:
+  cloud:
+    stream.bindings.sendSensorData-out-0.destination: sensor-data
+    discovery:
+      client:
+        health-indicator:
+          enabled: false
 org:
   springframework:
     cloud:
