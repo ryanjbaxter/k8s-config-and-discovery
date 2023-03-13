@@ -74,11 +74,13 @@ items:
           serviceAccountName: spring-cloud-kubernetes-configserver
           containers:
             - name: spring-cloud-kubernetes-configserver
-              image: springcloud/spring-cloud-kubernetes-configserver:2.1.2
+              image: springcloud/spring-cloud-kubernetes-configserver:3.0.1
               imagePullPolicy: IfNotPresent
               env:
                 - name: SPRING_PROFILES_INCLUDE
                   value: "kubernetes,git"
+                - name: SPRING_CLOUD_BOOTSTRAP_ENABLED
+                  value: "true"
               readinessProbe:
                 httpGet:
                   port: 8888

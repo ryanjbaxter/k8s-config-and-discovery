@@ -19,7 +19,7 @@ public class SpringSensorsLocationServiceApplication {
 		SpringApplication.run(SpringSensorsLocationServiceApplication.class, args);
 	}
 
-	@GetMapping
+	@GetMapping("/")
 	public String getLocation() {
 		return LOCATIONS[r.ints(0, LOCATIONS.length).limit(1).findFirst().getAsInt()];
 	}

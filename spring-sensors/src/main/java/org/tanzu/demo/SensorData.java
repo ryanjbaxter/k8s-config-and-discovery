@@ -1,8 +1,9 @@
 package org.tanzu.demo;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.UUID;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class SensorData {
